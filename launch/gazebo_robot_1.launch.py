@@ -1,6 +1,9 @@
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument
+
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.substitutions import Command, FindExecutable, LaunchConfiguration, PathJoinSubstitution
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
@@ -62,9 +65,27 @@ def generate_launch_description():
         parameters=[robot_description],
     )
 
+    gazebo = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            PathJoinSubstitution(
+                [FindPackageShare("gazebo_ros"), "launch", "gazebo.launch.py"]
+            )
+        )
+    )
+
+    gazebo_entity_node = Node(
+        package="gazebo_ros",
+        executable="spawn_entity.py",
+        arguments=["-topic", "robot_description",
+                   "-entity", "bot"],
+        output="screen"        
+    )
+
     return LaunchDescription(
         declared_arguments
         + [
             robot_state_publisher_node,
+            gazebo,
+            gazebo_entity_node,
         ]
     )

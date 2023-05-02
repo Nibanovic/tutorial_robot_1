@@ -21,12 +21,6 @@
 
     <!-- CHASSIS LINK -->
 
-    <joint name="${prefix}chassis_joint" type="fixed">
-      <parent link="${prefix}base_link"/>
-      <child link="${prefix}chassis_link"/>
-      <origin xyz="-0.1 0 0"/>
-    </joint>
-
     <link name="${prefix}chassis_link">
       <visual>
         <origin xyz="0.15 0 0.075"/>
@@ -48,15 +42,19 @@
       </xacro:box_inertial>
 
     </link>
+    
+    <joint name="${prefix}chassis_joint" type="fixed">
+      <parent link="${prefix}base_link"/>
+      <child link="${prefix}chassis_link"/>
+      <origin xyz="-0.1 0 0"/>
+    </joint>
+
+    <gazebo reference="chassis_link">
+      <material>Gazebo/Turquoise</material>
+    </gazebo>
+
 
     <!-- LEFT WHEEL LINK-->
-
-    <joint name="${prefix}left_wheel_joint" type="continuous">
-      <parent link="${prefix}base_link"/>
-      <child link="${prefix}left_wheel_link"/>
-      <origin xyz="0 0.15 0" rpy="${-pi/2} 0 0"/>
-      <axis xyz="0 0 1"/>
-    </joint>
 
     <link name="${prefix}left_wheel_link">
       <visual>
@@ -77,14 +75,18 @@
       </collision>
     </link>
 
-    <!-- RIGHT WHEEL LINK-->
-
-    <joint name="${prefix}right_wheel_joint" type="continuous">
+    <joint name="${prefix}left_wheel_joint" type="continuous">
       <parent link="${prefix}base_link"/>
-      <child link="${prefix}right_wheel_link"/>
-      <origin xyz="0 -0.15 0" rpy="${pi/2} 0 0"/>
-      <axis xyz="0 0 -1"/>
+      <child link="${prefix}left_wheel_link"/>
+      <origin xyz="0 0.15 0" rpy="${-pi/2} 0 0"/>
+      <axis xyz="0 0 1"/>
     </joint>
+
+    <gazebo reference="left_wheel_link">
+      <material>Gazebo/White</material>
+    </gazebo>
+
+    <!-- RIGHT WHEEL LINK-->
 
     <link name="${prefix}right_wheel_link">
       <visual>
@@ -105,13 +107,18 @@
       </collision>
     </link>
 
-    <!-- CASTER WHEEL LINK -->
-
-    <joint name="${prefix}caster_wheel_joint" type="fixed">
-      <parent link="${prefix}chassis_link"/>
-      <child link="${prefix}caster_wheel_link"/>
-      <origin xyz="0.24 0 0"/>
+    <joint name="${prefix}right_wheel_joint" type="continuous">
+      <parent link="${prefix}base_link"/>
+      <child link="${prefix}right_wheel_link"/>
+      <origin xyz="0 -0.15 0" rpy="${pi/2} 0 0"/>
+      <axis xyz="0 0 -1"/>
     </joint>
+
+    <gazebo reference="right_wheel_link">
+      <material>Gazebo/White</material>
+    </gazebo>
+
+    <!-- CASTER WHEEL LINK -->
 
     <link name="${prefix}caster_wheel_link">
       <visual>
@@ -130,6 +137,18 @@
         </geometry>
       </collision>
     </link>
+
+    <joint name="${prefix}caster_wheel_joint" type="fixed">
+      <parent link="${prefix}chassis_link"/>
+      <child link="${prefix}caster_wheel_link"/>
+      <origin xyz="0.24 0 0"/>
+    </joint>
+
+    <gazebo reference="caster_wheel_link">
+      <material>Gazebo/Red</material>
+    </gazebo>
+
+
 
   </xacro:macro>
 </robot>
