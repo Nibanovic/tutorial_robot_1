@@ -81,11 +81,25 @@ def generate_launch_description():
         output="screen"        
     )
 
+    joint_broad_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["joint_broad"],
+    )
+
+    diff_drive_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["diff_cont"],
+    )
+
     return LaunchDescription(
         declared_arguments
         + [
             robot_state_publisher_node,
             gazebo,
             gazebo_entity_node,
+            joint_broad_spawner,
+            diff_drive_spawner,
         ]
     )
