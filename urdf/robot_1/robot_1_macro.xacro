@@ -3,21 +3,12 @@
 
   <xacro:include filename="$(find tutorial_robot_1)/urdf/common.xacro" />
 
-  <xacro:macro name="robot_1" params="prefix parent *origin">
+  <xacro:macro name="robot_1" params="prefix *origin">
 
     <!-- BASE LINK -->
 
     <link name="${prefix}base_link">
-      <!-- Default inertial for Gazebo/Ingnition - copy and edit block from 'common.xacro'
-           to get more realistic behaviour-->
-      <xacro:default_inertial/>
     </link>
-
-    <joint name="${prefix}base_joint" type="fixed">
-      <xacro:insert_block name="origin" />           
-      <parent link="${parent}" /> 
-      <child link="${prefix}base_link" />
-    </joint>
 
     <!-- CHASSIS LINK -->
 
@@ -146,6 +137,8 @@
 
     <gazebo reference="caster_wheel_link">
       <material>Gazebo/Red</material>
+        <mu1 value="0.001"/>
+        <mu2 value="0.001"/>      
     </gazebo>
 
 

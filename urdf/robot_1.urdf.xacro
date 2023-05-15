@@ -8,13 +8,10 @@
   <xacro:include filename="$(find tutorial_robot_1)/urdf/robot_1/robot_1_macro.xacro"/>
 
 
-  <!-- create link fixed to the "world" -->
-  <link name="world" />
-
   <!-- Load robot's macro with parameters -->
   <!-- set prefix if multiple robots are used -->
-  <xacro:robot_1 prefix="$(arg prefix)" parent="world" >
-    <origin xyz="0 0 0.05" rpy="0 0 0" />          <!-- position robot in the world -->
+  <xacro:robot_1 prefix="$(arg prefix)">
+    <origin xyz="0 0 0" rpy="0 0 0" />          <!-- position robot in the world -->
   </xacro:robot_1>
 
 </robot>
